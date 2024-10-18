@@ -79,3 +79,60 @@ The project uses five main tables:
  - `Streams`: The total number of streams the track has on the respective platform.
  - `MostPlayedOn`: The platform where the track is most played (e.g., Spotify, YouTube).
 
+## SQL Schema
+
+```sql
+DROP TABLE IF EXISTS Artists
+CREATE TABLE Artists (
+    ArtistID NUMBER PRIMARY KEY,
+    ArtistName VARCHAR2(255) NOT NULL
+);
+
+DROP TABLE IF EXISTS Albums
+CREATE TABLE Albums (
+    AlbumID NUMBER PRIMARY KEY,
+    ArtistID NUMBER,
+    AlbumName VARCHAR2(255) NOT NULL,
+    AlbumType VARCHAR2(50),
+    FOREIGN KEY (ArtistID) REFERENCES Artists(ArtistID)
+);
+
+DROP TABLE IF EXISTS Tracks
+CREATE TABLE Tracks (
+    TrackID NUMBER PRIMARY KEY,
+    AlbumID NUMBER,
+    TrackName VARCHAR2(255) NOT NULL,
+    Danceability NUMBER,
+    Energy NUMBER,
+    Loudness NUMBER,
+    Speechiness NUMBER,
+    Acousticness NUMBER,
+    Instrumentalness NUMBER,
+    Liveness NUMBER,
+    Valence NUMBER,
+    Tempo NUMBER,
+    DurationMin NUMBER,
+    FOREIGN KEY (AlbumID) REFERENCES Albums(AlbumID)
+);
+
+DROP TABLE IF EXISTS YoutubeVideos
+CREATE TABLE YouTubeVideos (
+    VideoID NUMBER PRIMARY KEY,
+    TrackID NUMBER,
+    Title VARCHAR2(255),
+    Channel VARCHAR2(255),
+    Views NUMBER,
+    Likes NUMBER,
+    Comments NUMBER,
+    FOREIGN KEY (TrackID) REFERENCES Tracks(TrackID)
+);
+
+DROP TABLE IF EXISTS StreamingStats
+CREATE TABLE StreamingStats (
+    StreamID NUMBER PRIMARY KEY,
+    TrackID NUMBER,
+    Streams NUMBER,
+    MostPlayedOn VARCHAR2(50),
+    FOREIGN KEY (TrackID) REFERENCES Tracks(TrackID)
+);
+```
