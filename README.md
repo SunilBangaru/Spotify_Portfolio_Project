@@ -157,22 +157,23 @@ GROUP BY T.TrackName;
 ```
 
 ### 3, Find the average duration of tracks(Round the decimals to 2).
-
+```sql
 SELECT ROUND(AVG(DurationMin),2) AS AvgDuration
 FROM Tracks;
-
+```
 ### 4, List all top official music videos along with their views.
-
+```sql
 SELECT DISTINCT Title, Views
 FROM YouTubeVideos
 WHERE Views IS NOT NULL
 ORDER BY Views DESC;
-
+```
 ### 5, Find the top tracks with the highest total number of streams, excluding tracks with zero or missing streams.
-
+```sql
 SELECT DISTINCT T.TrackName, SUM(S.Streams) AS TotalStreams
 FROM Tracks T
 JOIN StreamingStats S ON T.TrackID = S.TrackID
 WHERE Streams > 0
 GROUP BY T.TrackName
 ORDER BY TotalStreams DESC;
+```
