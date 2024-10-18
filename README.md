@@ -13,7 +13,7 @@ Advanced: Analytical queries, e.g., performance metrics or rankings and multi-le
 
 ## Entity Relationship Diagram (ERD)
 
-![ERD]()
+![ERD](https://github.com/SunilBangaru/Spotify_Portfolio_Project/blob/main/ERD_Spotify_Final.png)
 
 ## Dataset
 
