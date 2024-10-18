@@ -261,3 +261,8 @@ FROM StreamingStats S
 JOIN Tracks T ON S.TrackID = T.TrackID
 WHERE S.MostPlayedOn = 'Youtube';
 ```
+
+### Conclusion
+
+The project provides a detailed analysis of the Spotify dataset by embedding SQL queries with gradually increasing complexity in order to derive more relevant information. We have analyzed track features, streaming data, and YouTube performance metrics, offering insights into music industry trends and track performance.
+
