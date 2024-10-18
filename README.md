@@ -8,7 +8,9 @@ The objective of this project is to draw insights based on the data available fr
 I have categorized it by three different levels of SQL query difficulty inside the project:
 
 Beginner: Basic joins, some filters, and aggregations functions.
+
 Intermediate: Complex queries on multiple tables and conditions.
+
 Advanced: Analytical queries, e.g., performance metrics or rankings and multi-level aggregations.
 
 ## Entity Relationship Diagram (ERD)
@@ -33,7 +35,47 @@ Tracks: Contains track-level data, including attributes such as danceability, en
 YouTubeVideos: Contains YouTube performance metrics for each track, such as views, likes, and comments.
 StreamingStats: Contains streaming data and platform-specific metrics, such as total streams and which platform the track is most popular on.
 
+## Database Schema
 
+The project uses five main tables:
 
+**Artists**: Contains information about music artists.
+ - `ArtistID`: Unique identifier for each artist.
+ - `ArtistName`: Name of the artist.
+ - `Albums`: Holds information about music albums.
 
+**AlbumID**: Unique identifier for each album.
+ - `ArtistID`: References the Artists table.
+ - `AlbumName`: Name of the album.
+ - `AlbumType`: Type of the album (e.g., album, single).
+   
+**Tracks**: Details about individual tracks.
+ - `TrackID`: Unique identifier for each track.
+ - `AlbumID`: References the Albums table.
+ - `TrackName`: Name of the track.
+ - `Danceability`: A measure of how suitable the track is for dancing.
+ - `Energy`: Energy level of the track.
+ - `Loudness`:The overall loudness of the track (in dB).
+ - `Speechiness`:A measure of the presence of spoken words in the track.
+ - `Acousticness`: The likelihood that the track is acoustic.
+ - `Instrumentalness`: Whether the track contains no vocals.
+ - `Liveness`: A measure of how "live" the track sounds.
+ - `Valence`: The musical positiveness of the track.
+ - `Tempo`: The tempo of the track (in BPM).
+ - `DurationMin`: Duration of the track (in minutes).
+
+**YouTubeVideos**: Contains information about YouTube videos associated with tracks.
+- `VideoID`: Unique identifier for each video.
+- `TrackID`: References the Tracks table.
+- `Title`: Title of the YouTube video.
+- `Channel`: The YouTube channel that published the video.
+- `Views`: Number of views the video has.
+- `Likes`: Number of likes the video has.
+- `Comments`: Number of comments on the video.
+
+**StreamingStats**: Stores streaming statistics for tracks.
+ - `StreamID`: Unique identifier for each streaming record.
+ - `TrackID`: References the Tracks table.
+ - `Streams`: The total number of streams the track has on the respective platform.
+ - `MostPlayedOn`: The platform where the track is most played (e.g., Spotify, YouTube).
 
