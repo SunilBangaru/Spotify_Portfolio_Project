@@ -177,3 +177,87 @@ WHERE Streams > 0
 GROUP BY T.TrackName
 ORDER BY TotalStreams DESC;
 ```
+
+### 6, Find the top 5 tracks with the highest number of streams.
+```sql
+SELECT DISTINCT T.TrackName, S.Streams
+FROM Tracks T
+JOIN StreamingStats S ON T.TrackID = S.TrackID
+ORDER BY S.Streams DESC
+FETCH FIRST 5 ROWS ONLY;
+```
+### 7, Get the total likes and comments for each artist's YouTube videos.
+```sql
+SELECT DISTINCT AR.ArtistName, SUM(YT.Likes) AS TotalLikes, SUM(YT.Comments) AS TotalComments
+FROM Artists AR
+JOIN Albums AL ON AR.ArtistID = AL.ArtistID
+JOIN Tracks T ON AL.AlbumID = T.AlbumID
+JOIN YouTubeVideos YT ON T.TrackID = YT.TrackID
+GROUP BY AR.ArtistName;
+```
+### 8, Find the most popular track (based on streams and views).
+```sql
+SELECT DISTINCT T.TrackName, SUM(S.Streams) + SUM(YT.Views) AS Popularity
+FROM Tracks T
+JOIN YouTubeVideos YT ON T.TrackID = YT.TrackID
+JOIN StreamingStats S ON T.TrackID = S.TrackID
+GROUP BY T.TrackName
+ORDER BY Popularity DESC
+FETCH FIRST 1 ROWS ONLY;
+```
+### 9, Get all tracks that belong to a specific genre of albums (e.g., "album" type).
+```sql
+SELECT DISTINCT T.TrackName
+FROM Tracks T
+JOIN Albums A ON T.AlbumID = A.AlbumID
+WHERE A.AlbumType = 'album';
+```
+### 10, Find the artist with the highest total streams across all albums.
+```sql
+SELECT DISTINCT AR.ArtistName, SUM(S.Streams) AS TotalStreams
+FROM Artists AR
+JOIN Albums AL ON AR.ArtistID = AL.ArtistID
+JOIN Tracks T ON AL.AlbumID = T.AlbumID
+JOIN StreamingStats S ON T.TrackID = S.TrackID
+GROUP BY AR.ArtistName
+ORDER BY TotalStreams DESC
+FETCH FIRST 1 ROWS ONLY;
+```
+### 11, Compare YouTube views to Spotify streams for all tracks.
+```sql
+SELECT DISTINCT T.TrackName, YT.Views, S.Streams
+FROM Tracks T
+JOIN YouTubeVideos YT ON T.TrackID = YT.TrackID
+JOIN StreamingStats S ON T.TrackID = S.TrackID
+```
+### 12, Find the track with the highest "Energy" value.
+```sql
+SELECT DISTINCT TrackName, Energy
+FROM Tracks
+WHERE Energy = (SELECT MAX(Energy) 
+                FROM Tracks);
+```
+### 13, Identify the artist whose tracks have the highest average energy.
+```sql
+SELECT AR.ArtistName, AVG(T.Energy) AS AvgEnergy
+FROM Artists AR
+JOIN Albums AL ON AR.ArtistID = AL.ArtistID
+JOIN Tracks T ON AL.AlbumID = T.AlbumID
+GROUP BY AR.ArtistName
+ORDER BY AvgEnergy DESC
+FETCH FIRST 1 ROWS ONLY;
+```
+### 14, Get the distribution of track danceability across albums.
+```sql
+SELECT DISTINCT A.AlbumName, AVG(T.Danceability) AS AvgDanceability
+FROM Albums A
+JOIN Tracks T ON A.AlbumID = T.AlbumID
+GROUP BY A.AlbumName;
+```
+### 15, Find which track is played most on YouTube compared to Spotify.
+```sql
+SELECT DISTINCT T.TrackName, S.MostPlayedOn
+FROM StreamingStats S
+JOIN Tracks T ON S.TrackID = T.TrackID
+WHERE S.MostPlayedOn = 'Youtube';
+```
