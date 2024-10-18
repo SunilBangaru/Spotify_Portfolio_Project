@@ -29,11 +29,11 @@ The dataset has been divided into five relational tables to allow for efficient 
 
 Below is the overview of the dataset which has been updated from reference dataset:
 
-Artists: Contains unique information about the artists.
-Albums: Contains album-level data, including the album type and the artist who released it.
-Tracks: Contains track-level data, including attributes such as danceability, energy, and tempo.
-YouTubeVideos: Contains YouTube performance metrics for each track, such as views, likes, and comments.
-StreamingStats: Contains streaming data and platform-specific metrics, such as total streams and which platform the track is most popular on.
+ - Artists: Contains unique information about the artists.
+ - Albums: Contains album-level data, including the album type and the artist who released it.
+ - Tracks: Contains track-level data, including attributes such as danceability, energy, and tempo.
+ - YouTubeVideos: Contains YouTube performance metrics for each track, such as views, likes, and comments.
+ - StreamingStats: Contains streaming data and platform-specific metrics, such as total streams and which platform the track is most popular on.
 
 ## Database Schema
 
