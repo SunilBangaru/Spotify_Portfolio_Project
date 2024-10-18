@@ -136,3 +136,43 @@ CREATE TABLE StreamingStats (
     FOREIGN KEY (TrackID) REFERENCES Tracks(TrackID)
 );
 ```
+
+## Business Problems and Solutions
+
+### 1, List all albums along with their respective artist names.
+
+```sql
+SELECT DISTINCT AlbumName, ArtistName
+FROM Albums A
+JOIN Artists AR ON A.ArtistID = AR.ArtistID;
+```
+
+### 2, Get the total views for each track's YouTube video.
+
+```sql
+SELECT DISTINCT T.TrackName, SUM(YT.Views) AS TotalViews
+FROM Tracks T
+JOIN YouTubeVideos YT ON T.TrackID =YT.TrackID
+GROUP BY T.TrackName;
+```
+
+### 3, Find the average duration of tracks(Round the decimals to 2).
+
+SELECT ROUND(AVG(DurationMin),2) AS AvgDuration
+FROM Tracks;
+
+### 4, List all top official music videos along with their views.
+
+SELECT DISTINCT Title, Views
+FROM YouTubeVideos
+WHERE Views IS NOT NULL
+ORDER BY Views DESC;
+
+### 5, Find the top tracks with the highest total number of streams, excluding tracks with zero or missing streams.
+
+SELECT DISTINCT T.TrackName, SUM(S.Streams) AS TotalStreams
+FROM Tracks T
+JOIN StreamingStats S ON T.TrackID = S.TrackID
+WHERE Streams > 0
+GROUP BY T.TrackName
+ORDER BY TotalStreams DESC;
