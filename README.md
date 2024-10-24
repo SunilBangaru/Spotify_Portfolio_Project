@@ -44,7 +44,8 @@ The project uses five main tables:
  - `ArtistName`: Name of the artist.
  - `Albums`: Holds information about music albums.
 
-**AlbumID**: Unique identifier for each album.
+**Album**: Contains information about music album.
+ - `AlbumID`: Unique identifier for each album.
  - `ArtistID`: References the Artists table.
  - `AlbumName`: Name of the album.
  - `AlbumType`: Type of the album (e.g., album, single).
